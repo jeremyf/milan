@@ -5,14 +5,13 @@ module Milan
   RSpec.describe FormBuilder do
     let(:config) { { form: 'hello', terms: { term: 'ND.another_term' } } }
     let(:additional_terms) { { term: 'ND.expected_graduation_term', cardinality: 1 } }
-    let(:term_aggregator) { double('Term Aggregator', append_terms: true) }
-    subject { described_class.new(config: config, term_aggregator: term_aggregator) }
-
-    its(:default_term_aggregator) { should respond_to(:append_terms) }
+    subject { described_class.new(config: config) }
     it 'will append terms to the term aggregator during initialization' do
+      expect_any_instance_of(TermAggregator).to receive(:append_additional_terms_configurations).with(additional_terms)
       additional_terms_scoped = additional_terms # establishing lexical scope
-      described_class.new(config: config, term_aggregator: term_aggregator) { append_terms(additional_terms_scoped) }
-      expect(term_aggregator).to have_received(:append_terms).with(additional_terms)
+      described_class.new(config: config) do
+        append_additional_terms_configurations(additional_terms_scoped)
+      end
     end
   end
 end
