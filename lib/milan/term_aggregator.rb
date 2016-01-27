@@ -1,4 +1,5 @@
 require 'milan/term_set'
+require 'milan/term'
 module Milan
   # Responsible for aggregating the configuration information for the given terms
   class TermAggregator
@@ -31,7 +32,7 @@ module Milan
         next unless additional_config
         aggregate_config.unshift(additional_config)
       end
-      merge(aggregate_config)
+      Term.new(**merge(aggregate_config))
     end
 
     # :reek:UtilityFunction: { exclude: [ 'Milan::TermAggregator#merge' ] }
