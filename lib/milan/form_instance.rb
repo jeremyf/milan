@@ -1,9 +1,9 @@
 module Milan
   # A work in progress to implement an ActiveModel interface
   class FormInstance < BasicObject
-    # :nodoc:
-    class Errors
-      def [](_value)
+    # A weak attempt at mirroring ActiveModel interface
+    module Errors
+      def self.[](_value)
         []
       end
     end
@@ -43,9 +43,11 @@ module Milan
     end
 
     def errors
-      Errors.new
+      Errors
     end
 
+    # :reek:BooleanParameter: { exclude: [ 'Milan::FormInstance#respond_to?' ] }
+    # :reek:ControlParameter: { exclude: [ 'Milan::FormInstance#respond_to?' ] }
     def respond_to?(method_name, all_methods = false)
       return true if FormInstance.instance_methods.include?(method_name)
       if all_methods
