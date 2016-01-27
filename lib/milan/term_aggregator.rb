@@ -25,18 +25,18 @@ module Milan
     # :reek:TooManyStatements: { exclude: [ 'Milan::TermAggregator#build_configuration_for' ] }
     def build_configuration_for(term:)
       key = term.fetch(:term)
-      aggregate_config = [term]
+      aggregate_term_config = [term]
       additional_terms_configurations.each do |terms_config|
-        additional_config = terms_config.find { |term_config| term_config.fetch(:term) == key }
-        next unless additional_config
-        aggregate_config.unshift(additional_config)
+        additional_term_config = terms_config.find { |term_config| term_config.fetch(:term) == key }
+        next unless additional_term_config
+        aggregate_term_config.unshift(additional_term_config)
       end
-      Term.new(**merge(aggregate_config))
+      Term.new(**merge_term(aggregate_term_config))
     end
 
-    # :reek:UtilityFunction: { exclude: [ 'Milan::TermAggregator#merge' ] }
-    def merge(aggregate_config)
-      aggregate_config.each_with_object({}) do |element, hash|
+    # :reek:UtilityFunction: { exclude: [ 'Milan::TermAggregator#merge_term' ] }
+    def merge_term(aggregate_term_config)
+      aggregate_term_config.each_with_object({}) do |element, hash|
         hash.merge!(element)
         hash
       end
