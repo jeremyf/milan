@@ -7,7 +7,7 @@ module Milan
 
     include Enumerable
     extend Forwardable
-    def_delegators :terms, :each, :size
+    def_delegators :terms, :each, :size, :length
 
     def fetch(term)
       self[term] || (fail KeyError, term)

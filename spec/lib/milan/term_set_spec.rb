@@ -9,7 +9,9 @@ module Milan
     subject { TermSet.new(terms: [term1, term2]) }
 
     its(:param_keys) { should eq([term1.param_key, term2.param_key]) }
-
+    it { should delegate_method(:each).to(:terms) }
+    it { should delegate_method(:length).to(:terms) }
+    it { should delegate_method(:size).to(:terms) }
     context '#fetch' do
       it 'will retrieve based on the term' do
         expect(subject.fetch('DC.title')).to eq(term1)
