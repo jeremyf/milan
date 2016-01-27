@@ -21,6 +21,8 @@ module Milan
 
     attr_accessor :terms, :additional_terms_configurations
 
+    # :reek:NestedIterators: { exclude: [ 'Milan::TermAggregator#build_configuration_for' ] }
+    # :reek:TooManyStatements: { exclude: [ 'Milan::TermAggregator#build_configuration_for' ] }
     def build_configuration_for(term:)
       key = term.fetch(:term)
       aggregate_config = [term]
@@ -29,6 +31,11 @@ module Milan
         next unless additional_config
         aggregate_config.unshift(additional_config)
       end
+      merge(aggregate_config)
+    end
+
+    # :reek:UtilityFunction: { exclude: [ 'Milan::TermAggregator#merge' ] }
+    def merge(aggregate_config)
       aggregate_config.each_with_object({}) do |element, hash|
         hash.merge!(element)
         hash

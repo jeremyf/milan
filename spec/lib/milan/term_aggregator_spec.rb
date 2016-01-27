@@ -19,7 +19,7 @@ module Milan
         subject do
           described_class.new(terms: [{ term: 'DC.title' }, { term: 'DC.abstract', cardinality: 'many' }]).tap do |obj|
             obj.append_additional_terms_configurations(
-              terms: [{ term: 'DC.title', cardinality: 1 }, { term: 'DC.hello' }, { term: 'DC.abstract', cardinality: 1}]
+              terms: [{ term: 'DC.title', cardinality: 1 }, { term: 'DC.hello' }, { term: 'DC.abstract', cardinality: 1 }]
             )
           end.finalize
         end

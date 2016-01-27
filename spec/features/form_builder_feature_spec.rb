@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'milan/form_builder'
+require 'milan'
 
-RSpec.describe 'Form feature spec' do
+RSpec.describe Milan, type: :feature do
   context '.form_for' do
     let(:context) { double('The Context for the Form') }
-    let(:requested_by) { double('Requester')}
+    let(:requested_by) { double('Requester') }
 
-    subject { Milan.form_for(work_type: "ULRA Application", form: 'Plan of Study', config: config) }
+    subject { described_class.form_for(work_type: "ULRA Application", form: 'Plan of Study', config: config) }
 
     its(:partial_suffix) { should eq('plan_of_study') }
     it { should be_a(Milan::FormBuilder) }
