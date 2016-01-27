@@ -1,3 +1,4 @@
+require 'milan/term_set'
 module Milan
   # Responsible for aggregating the configuration information for the given terms
   class TermAggregator
@@ -11,10 +12,9 @@ module Milan
     end
 
     def finalize
-      terms.each_with_object({}) do |term, obj|
-        obj[term.fetch(:term)] = build_configuration_for(term: term)
-        obj
-      end.freeze
+      data = {}
+      terms.each { |term| data[term.fetch(:term)] = build_configuration_for(term: term) }
+      TermSet.new(terms: data)
     end
 
     private

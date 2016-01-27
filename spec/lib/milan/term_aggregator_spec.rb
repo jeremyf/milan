@@ -8,7 +8,7 @@ module Milan
     context '#finalize' do
       subject { described_class.new(terms: [{ term: 'DC.title' }, { term: 'DC.abstract' }]).finalize }
       context 'without additional term configuration' do
-        it { should be_a(Enumerable) }
+        it { should be_a(TermSet) }
         its(:size) { should eq(2) }
 
         it 'will expose retrieval method for term' do
@@ -24,7 +24,7 @@ module Milan
           end.finalize
         end
 
-        it { should be_a(Enumerable) }
+        it { should be_a(TermSet) }
         its(:size) { should eq(2) }
 
         it 'will expose retrieval method for term' do
