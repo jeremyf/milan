@@ -12,6 +12,7 @@ module Milan
       self.partial_suffix = config.fetch(:partial_suffix, name)
       self.term_aggregator = term_aggregate_builder.call(terms: config.fetch(:terms))
       instance_exec(&configuration_block) if block_given?
+      self.terms = term_aggregator.finalize
     end
     attr_reader :name, :partial_suffix
 
@@ -25,7 +26,7 @@ module Milan
     private
 
     attr_writer :name
-    attr_accessor :config, :term_aggregator
+    attr_accessor :config, :term_aggregator, :terms
 
     def partial_suffix=(input)
       @partial_suffix = Hanami::Utils::String.new(input).underscore

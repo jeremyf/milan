@@ -11,6 +11,7 @@ RSpec.describe Milan, type: :feature do
     its(:partial_suffix) { should eq('plan_of_study') }
     it { should be_a(Milan::FormBuilder) }
     its(:contracts) { should eq(config.fetch(:work_types)[0].fetch(:forms)[0].fetch(:contracts)) }
+    its(:terms) { should be_a(Enumerable) }
   end
 
   let(:config) do
