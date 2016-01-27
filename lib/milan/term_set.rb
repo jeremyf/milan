@@ -14,7 +14,7 @@ module Milan
     end
 
     def [](term)
-      find {|element| element.term == term }
+      find { |element| element.term == term }
     end
 
     def param_keys

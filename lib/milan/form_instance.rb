@@ -1,7 +1,9 @@
 module Milan
+  # A work in progress to implement an ActiveModel interface
   class FormInstance < BasicObject
+    # :nodoc:
     class Errors
-      def [](value)
+      def [](_value)
         []
       end
     end
@@ -46,10 +48,11 @@ module Milan
 
     def respond_to?(method_name, all_methods = false)
       return true if FormInstance.instance_methods.include?(method_name)
-      return true if all_methods && FormInstance.private_instance_methods.include?(method_name)
-      return true if all_methods && FormInstance.protected_instance_methods.include?(method_name)
+      if all_methods
+        return true if FormInstance.private_instance_methods.include?(method_name)
+        return true if FormInstance.protected_instance_methods.include?(method_name)
+      end
       return true if attribute_keys.include?(method_name)
-      return true if attribute_keys.include?(method_name.to_s)
       false
     end
 
@@ -62,6 +65,5 @@ module Milan
     private
 
     attr_accessor :form_builder, :attributes
-
   end
 end

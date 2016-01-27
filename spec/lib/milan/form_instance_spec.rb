@@ -28,14 +28,21 @@ module Milan
 
       it 'will implement #to_key' do
         expect(subject).to respond_to(:to_key)
-        def subject.persisted?; false; end
+        def subject.persisted?
+          false
+        end
         expect(subject.to_key).to eq(nil)
       end
 
       it 'will implement #to_param' do
         expect(subject).to respond_to(:to_param)
-        def subject.to_key; [1]; end
-        def subject.persisted?; false; end
+        def subject.to_key
+          [1]
+        end
+
+        def subject.persisted?
+          false
+        end
         expect(subject.to_param).to eq(nil)
       end
     end
