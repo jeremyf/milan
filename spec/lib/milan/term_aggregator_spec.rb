@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'milan/term_aggregator'
+require 'milan/term'
 
 module Milan
   RSpec.describe TermAggregator do
@@ -12,7 +13,7 @@ module Milan
         its(:size) { should eq(2) }
 
         it 'will expose retrieval method for term' do
-          expect(subject.fetch('DC.title')).to eq(term: 'DC.title')
+          expect(subject.fetch('DC.title')).to eq(Term.new(term: 'DC.title'))
         end
       end
       context 'with additional configuration' do
@@ -28,11 +29,11 @@ module Milan
         its(:size) { should eq(2) }
 
         it 'will expose retrieval method for term' do
-          expect(subject.fetch('DC.title')).to eq(term: 'DC.title', cardinality: 1)
+          expect(subject.fetch('DC.title')).to eq(Term.new(term: 'DC.title', cardinality: 1))
         end
 
         it 'will prefer direct definitions of additional term configurations' do
-          expect(subject.fetch('DC.abstract')).to eq(term: 'DC.abstract', cardinality: 'many')
+          expect(subject.fetch('DC.abstract')).to eq(Term.new(term: 'DC.abstract', cardinality: 'many'))
         end
 
         it 'will only register terms that were part of the initialization' do
