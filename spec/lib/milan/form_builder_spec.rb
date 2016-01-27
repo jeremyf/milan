@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'milan/form_builder'
+require 'milan/term_set'
+require 'milan/term_aggregator'
 
 module Milan
   RSpec.describe FormBuilder do
@@ -14,5 +16,6 @@ module Milan
         append_additional_terms_configurations(terms: additional_terms_scoped)
       end
     end
+    its(:terms) { should be_a(TermSet) }
   end
 end

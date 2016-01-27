@@ -23,10 +23,12 @@ module Milan
       config.fetch(:contracts)
     end
 
+    attr_reader :terms
+
     private
 
-    attr_writer :name
-    attr_accessor :config, :term_aggregator, :terms
+    attr_writer :name, :terms
+    attr_accessor :config, :term_aggregator
 
     def partial_suffix=(input)
       @partial_suffix = Hanami::Utils::String.new(input).underscore
