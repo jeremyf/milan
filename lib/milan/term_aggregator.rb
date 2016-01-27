@@ -13,8 +13,7 @@ module Milan
     end
 
     def finalize
-      data = {}
-      terms.each { |term| data[term.fetch(:term)] = build_configuration_for(term: term) }
+      data = terms.map { |term| build_configuration_for(term: term) }
       TermSet.new(terms: data)
     end
 

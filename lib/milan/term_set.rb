@@ -7,7 +7,19 @@ module Milan
 
     include Enumerable
     extend Forwardable
-    def_delegators :terms, :fetch, :[], :each, :size
+    def_delegators :terms, :each, :size
+
+    def fetch(term)
+      self[term] || (fail KeyError, term)
+    end
+
+    def [](term)
+      find {|element| element.term == term }
+    end
+
+    def param_keys
+      map(&:param_key)
+    end
 
     private
 

@@ -19,6 +19,10 @@ module Milan
     attr_reader :term, :keywords
     alias name term
 
+    def param_key
+      keywords.fetch(:param_key, term)
+    end
+
     private
 
     attr_writer :term, :keywords
