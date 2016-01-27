@@ -14,13 +14,17 @@ module Milan
       self.attributes = attributes
     end
 
-    def singleton_class
-      form_builder.singleton_class
+    def attribute_keys
+      []
     end
 
-    def valid?
-      form_builder.valid?(attributes: attributes)
-    end
+    # def singleton_class
+    #   form_builder.singleton_class
+    # end
+    #
+    # def valid?
+    #   form_builder.valid?(attributes: attributes)
+    # end
 
     def class
       form_builder.model_class
@@ -46,15 +50,11 @@ module Milan
       Errors
     end
 
-    # :reek:BooleanParameter: { exclude: [ 'Milan::FormInstance#respond_to?' ] }
-    # :reek:ControlParameter: { exclude: [ 'Milan::FormInstance#respond_to?' ] }
-    def respond_to?(method_name, all_methods = false)
-      return true if FormInstance.instance_methods.include?(method_name)
-      if all_methods
-        return true if FormInstance.private_instance_methods.include?(method_name)
-        return true if FormInstance.protected_instance_methods.include?(method_name)
-      end
+    alias send __send__
+
+    def respond_to?(method_name, *)
       return true if attribute_keys.include?(method_name)
+      return true if FormInstance.instance_methods.include?(method_name)
       false
     end
 

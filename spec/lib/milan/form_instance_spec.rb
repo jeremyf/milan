@@ -6,6 +6,11 @@ module Milan
     let(:model_name) { double('ModelName', human: 'Hello', singular: 'Hello', plural: 'Hello', to_str: 'Hello') }
     let(:form_builder) { double('FormBuilder', model_name: model_name, model_class: double(model_name: model_name)) }
     subject { described_class.new(form_builder: form_builder, attributes: {}) }
+    its(:inspect) { should be_a(String) }
+
+    it 'implements a custom respond_to' do
+      expect(subject).to_not respond_to(:foo)
+    end
     context 'verifying the active model interface' do
       it 'will implement errors' do
         expect(subject).to respond_to(:errors)
@@ -24,6 +29,7 @@ module Milan
 
       it 'will respond to #persisted?' do
         expect(subject).to respond_to(:persisted?)
+        expect(subject.persisted?).to eq(false)
       end
 
       it 'will implement #to_key' do
