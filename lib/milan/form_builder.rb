@@ -18,6 +18,7 @@ module Milan
 
     extend Forwardable
     def_delegator :term_aggregator, :append_additional_terms_configurations
+    private :append_additional_terms_configurations
 
     def contracts
       config.fetch(:contracts)
