@@ -1,5 +1,13 @@
 # Milan
 
+[![Build Status](https://travis-ci.org/jeremyf/milan.png?branch=master)](https://travis-ci.org/jeremyf/milan)
+[![Code Climate](https://codeclimate.com/github/jeremyf/milan.png)](https://codeclimate.com/github/jeremyf/milan)
+[![Test Coverage](https://codeclimate.com/github/jeremyf/milan/badges/coverage.svg)](https://codeclimate.com/github/jeremyf/milan)
+[![Dependency Status](https://gemnasium.com/jeremyf/milan.svg)](https://gemnasium.com/jeremyf/milan)
+[![Documentation Status](http://inch-ci.org/github/jeremyf/milan.svg?branch=master)](http://inch-ci.org/github/jeremyf/milan)
+[![APACHE 2 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
+[![Contributing Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
+
 A model/form object builder through configuration files.
 
 ## Problems I am Attempting to Address via Milan
