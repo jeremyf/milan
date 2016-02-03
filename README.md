@@ -40,9 +40,9 @@ I have a hazy plan for that but it is not yet complete.
       contracts: [{
         contexts: ['submit'],
         validations: [
-          { validates: 'ND.expected_graduation_term', presence: true, inclusion: "ND.expected_graduation_term/options" },
+          { validates: 'ND.expected_graduation_term', presence: true, inclusion: ["Summer 2016", "Fall 2016"] },
           { validates: 'ND.underclass_level', presence: true, inclusion: "ND.underclass_level/options" },
-          { validates: 'ND.major', presence: true },
+          { validates: 'ND.major', presence: true, inclusion: "https://nd.edu/api/majors.json" },
           { validates: 'ND.primary_college', presence: true, cardinality: 1 }
         ]
       }],
