@@ -10,7 +10,7 @@ module Milan
     def_delegators :predicates, :each, :size, :length
 
     def fetch(term)
-      self[term] || (fail KeyError, term)
+      self[term] || (raise KeyError, term)
     end
 
     def [](predicate)
