@@ -40,27 +40,40 @@ I have a hazy plan for that but it is not yet complete.
       contracts: [{
         contexts: ['submit'],
         validations: [
-          { validates: 'ND.expected_graduation_term', presence: true, inclusion: ["Summer 2016", "Fall 2016"] },
-          { validates: 'ND.underclass_level', presence: true, inclusion: "ND.underclass_level/options" },
-          { validates: 'ND.major', presence: true, inclusion: "https://nd.edu/api/majors.json" },
-          { validates: 'ND.primary_college', presence: true, cardinality: 1 }
+          { validates: 'ND::expected_graduation_term', presence: true, inclusion: ["Summer 2016", "Fall 2016"] },
+          { validates: 'ND::underclass_level', presence: true, inclusion: "ND::underclass_level/options" },
+          { validates: 'ND::major', presence: true, inclusion: "https://nd.edu/api/majors.json" },
+          { validates: 'ND::primary_college', presence: true }
         ]
       }],
       terms: [
-        { term: 'ND.expected_graduation_term', cardinality: 1 },
-        { term: 'ND.underclass_level' },
-        { term: 'ND.major', cardinality: 'many' },
-        { term: 'ND.minor', cardinality: 'many' },
-        { term: 'ND.primary_college', cardinality: 1 }
+        { term: 'ND::expected_graduation_term' },
+        { term: 'ND::underclass_level' },
+        { term: 'ND::major' },
+        { term: 'ND::minor' },
+        { term: 'ND::primary_college' }
       ]
     }],
-    terms: [{
-      term: 'ND.primary_college', cardinality: 1,
-      label: 'Primary College'
+    display: [{
+      regions: [{
+        region: "description", terms: [{ term: 'DC::title' }],
+        region: "plan_of_study", terms: [
+          { term: 'ND::expected_graduation_term' },
+          { term: 'ND::underclass_level' },
+          { term: 'ND::major' },
+          { term: 'ND::minor' },
+          { term: 'ND::primary_college' }
+        ]
+      }]
     }]
   }],
-  terms: [{
-    term: 'ND.underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], cardinality: 1
-  }]
+  terms: [
+    { term: 'DC::title' },
+    { term: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key: 'ND::underclass_level' },
+    { term: 'ND::expected_graduation_term', translation_key: 'ND::ulra.expected_graduation_term' },
+    { term: 'ND::major', translation_key: 'ND::major' },
+    { term: 'ND::minor', translation_key: 'ND::minor' },
+    { term: 'ND::primary_college', translation_key: 'ND::primary_college', indexing_strategies: ['text'] }
+  ]
 }
 ```
