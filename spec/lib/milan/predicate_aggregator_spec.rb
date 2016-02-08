@@ -8,11 +8,11 @@ module Milan
 
     context '#finalize' do
       subject { described_class.new(predicates: [{ predicate: 'DC.title' }, { predicate: 'DC.abstract' }]).finalize }
-      context 'without additional term configuration' do
+      context 'without additional predicate configuration' do
         it { should be_a(PredicateSet) }
         its(:size) { should eq(2) }
 
-        it 'will expose retrieval method for term' do
+        it 'will expose retrieval method for predicate' do
           expect(subject.fetch('DC.title')).to eq(Predicate.new(predicate: 'DC.title'))
         end
       end
@@ -30,15 +30,15 @@ module Milan
         it { should be_a(PredicateSet) }
         its(:size) { should eq(2) }
 
-        it 'will expose retrieval method for term' do
+        it 'will expose retrieval method for predicate' do
           expect(subject.fetch('DC.title')).to eq(Predicate.new(predicate: 'DC.title', cardinality: 1))
         end
 
-        it 'will prefer direct definitions of additional term configurations' do
+        it 'will prefer direct definitions of additional predicate configurations' do
           expect(subject.fetch('DC.abstract')).to eq(Predicate.new(predicate: 'DC.abstract', cardinality: 'many'))
         end
 
-        it 'will only register terms that were part of the initialization' do
+        it 'will only register predicates that were part of the initialization' do
           expect { subject.fetch('DC.hello') }.to raise_error(KeyError)
         end
       end

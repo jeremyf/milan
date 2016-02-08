@@ -8,7 +8,7 @@ module Milan
     let(:config) { { form: 'hello', predicates: [{ predicate: 'ND.another_term' }] } }
     let(:additional_predicates) { [{ predicate: 'ND.expected_graduation_term', cardinality: 1 }] }
     subject { described_class.new(config: config) }
-    it 'will append terms to the term aggregator during initialization' do
+    it 'will append predicates to the predicate aggregator during initialization' do
       expect_any_instance_of(PredicateAggregator).to(
         receive(:append_additional_predicates_configurations).with(predicates: additional_predicates).and_call_original
       )

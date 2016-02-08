@@ -12,7 +12,7 @@ module Milan
       it 'uses the param_key if one is given' do
         expect(described_class.new(predicate: 'Hello', cardinality: 1, param_key: 'hello_world').param_key).to eq('hello_world')
       end
-      it 'uses the term if a param_key is not given' do
+      it 'uses the predicate if a param_key is not given' do
         expect(described_class.new(predicate: 'Hello', cardinality: 1).param_key).to eq('Hello')
       end
     end

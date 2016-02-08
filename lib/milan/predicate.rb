@@ -1,7 +1,7 @@
 require 'dry/equalizer'
 
 module Milan
-  # Responsible for containing the definition of a Term.
+  # Responsible for containing the definition of a Predicate.
   #
   # This includes the name
   class Predicate

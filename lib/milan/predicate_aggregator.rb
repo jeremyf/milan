@@ -33,11 +33,11 @@ module Milan
         next unless additional_predicate_config
         aggregate_predicate_config.unshift(additional_predicate_config)
       end
-      Predicate.new(**merge_term(aggregate_predicate_config))
+      Predicate.new(**merge_predicate(aggregate_predicate_config))
     end
 
-    # :reek:UtilityFunction: { exclude: [ 'Milan::PredicateAggregator#merge_term' ] }
-    def merge_term(aggregate_predicate_config)
+    # :reek:UtilityFunction: { exclude: [ 'Milan::PredicateAggregator#merge_predicate' ] }
+    def merge_predicate(aggregate_predicate_config)
       aggregate_predicate_config.each_with_object({}) do |element, hash|
         hash.merge!(element)
         hash

@@ -9,8 +9,8 @@ module Milan
     extend Forwardable
     def_delegators :predicates, :each, :size, :length
 
-    def fetch(term)
-      self[term] || (raise KeyError, term)
+    def fetch(predicate)
+      self[predicate] || (raise KeyError, predicate)
     end
 
     def [](predicate)
