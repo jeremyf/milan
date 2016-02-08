@@ -36,7 +36,7 @@ I have a hazy plan for that but it is not yet complete.
       validations: [{ validator: 'Sipity::Contracts::IngestContract' }]
     }],
     forms: [{
-      form: "Plan of Study",
+      form: "plan_of_study",
       contracts: [{
         contexts: ['submit'],
         validations: [
@@ -53,18 +53,23 @@ I have a hazy plan for that but it is not yet complete.
         { predicate: 'ND::minor' },
         { predicate: 'ND::primary_college' }
       ]
+    }, {
+      form: "description",
+      contracts: [{
+        contexts: ['submit'],
+        validations: [
+          { validates: 'DC::title', presence: true }
+        ]
+      }],
+      predicates: [
+        { predicate: 'DC::title' },
+      ]
     }],
     display: [{
-      regions: [{
-        region: "description", predicates: [{ predicate: 'DC::title' }],
-        region: "plan_of_study", predicates: [
-          { predicate: 'ND::expected_graduation_term' },
-          { predicate: 'ND::underclass_level' },
-          { predicate: 'ND::major' },
-          { predicate: 'ND::minor' },
-          { predicate: 'ND::primary_college' }
-        ]
-      }]
+      regions: [
+        { region: "description", predicates: [ { predicate: 'DC::title' } ] },
+        { region: "plan_of_study", using_form: 'plan_of_study' }
+      ]
     }]
   }],
   predicates: [
