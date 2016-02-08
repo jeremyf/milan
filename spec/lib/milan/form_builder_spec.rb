@@ -1,22 +1,22 @@
 require 'spec_helper'
 require 'milan/form_builder'
-require 'milan/term_set'
-require 'milan/term_aggregator'
+require 'milan/predicate_set'
+require 'milan/predicate_aggregator'
 
 module Milan
   RSpec.describe FormBuilder do
-    let(:config) { { form: 'hello', terms: [{ term: 'ND.another_term' }] } }
-    let(:additional_terms) { [{ term: 'ND.expected_graduation_term', cardinality: 1 }] }
+    let(:config) { { form: 'hello', predicates: [{ predicate: 'ND.another_term' }] } }
+    let(:additional_predicates) { [{ predicate: 'ND.expected_graduation_term', cardinality: 1 }] }
     subject { described_class.new(config: config) }
     it 'will append terms to the term aggregator during initialization' do
-      expect_any_instance_of(TermAggregator).to(
-        receive(:append_additional_terms_configurations).with(terms: additional_terms).and_call_original
+      expect_any_instance_of(PredicateAggregator).to(
+        receive(:append_additional_predicates_configurations).with(predicates: additional_predicates).and_call_original
       )
-      additional_terms_scoped = additional_terms # establishing lexical scope
+      additional_predicates_scoped = additional_predicates # establishing lexical scope
       described_class.new(config: config) do
-        append_additional_terms_configurations(terms: additional_terms_scoped)
+        append_additional_predicates_configurations(predicates: additional_predicates_scoped)
       end
     end
-    its(:terms) { should be_a(TermSet) }
+    its(:predicates) { should be_a(PredicateSet) }
   end
 end

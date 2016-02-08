@@ -46,34 +46,34 @@ I have a hazy plan for that but it is not yet complete.
           { validates: 'ND::primary_college', presence: true }
         ]
       }],
-      terms: [
-        { term: 'ND::expected_graduation_term' },
-        { term: 'ND::underclass_level' },
-        { term: 'ND::major' },
-        { term: 'ND::minor' },
-        { term: 'ND::primary_college' }
+      predicates: [
+        { predicate: 'ND::expected_graduation_term' },
+        { predicate: 'ND::underclass_level' },
+        { predicate: 'ND::major' },
+        { predicate: 'ND::minor' },
+        { predicate: 'ND::primary_college' }
       ]
     }],
     display: [{
       regions: [{
-        region: "description", terms: [{ term: 'DC::title' }],
-        region: "plan_of_study", terms: [
-          { term: 'ND::expected_graduation_term' },
-          { term: 'ND::underclass_level' },
-          { term: 'ND::major' },
-          { term: 'ND::minor' },
-          { term: 'ND::primary_college' }
+        region: "description", predicates: [{ predicate: 'DC::title' }],
+        region: "plan_of_study", predicates: [
+          { predicate: 'ND::expected_graduation_term' },
+          { predicate: 'ND::underclass_level' },
+          { predicate: 'ND::major' },
+          { predicate: 'ND::minor' },
+          { predicate: 'ND::primary_college' }
         ]
       }]
     }]
   }],
-  terms: [
-    { term: 'DC::title' },
-    { term: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key: 'ND::underclass_level' },
-    { term: 'ND::expected_graduation_term', translation_key: 'ND::ulra.expected_graduation_term' },
-    { term: 'ND::major', translation_key: 'ND::major' },
-    { term: 'ND::minor', translation_key: 'ND::minor' },
-    { term: 'ND::primary_college', translation_key: 'ND::primary_college', indexing_strategies: ['text'] }
+  predicates: [
+    { predicate: 'DC::title' },
+    { predicate: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key: 'ND::underclass_level' },
+    { predicate: 'ND::expected_graduation_term', translation_key: 'ND::ulra.expected_graduation_term' },
+    { predicate: 'ND::major', translation_key: 'ND::major' },
+    { predicate: 'ND::minor', translation_key: 'ND::minor' },
+    { predicate: 'ND::primary_college', translation_key: 'ND::primary_college', indexing_strategies: ['text'] }
   ]
 }
 ```

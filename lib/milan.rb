@@ -10,8 +10,8 @@ module Milan
     work_type_config = work_types.find { |types| types.fetch(:work_type) == work_type }
     form_config = work_type_config.fetch(:forms).find { |obj| obj.fetch(:form) == form }
     FormBuilder.new(config: form_config) do
-      append_additional_terms_configurations(terms: work_type_config.fetch(:terms)) if form_config.key?(:terms)
-      append_additional_terms_configurations(terms: config.fetch(:terms)) if config.key?(:terms)
+      append_additional_predicates_configurations(predicates: work_type_config.fetch(:terms)) if form_config.key?(:terms)
+      append_additional_predicates_configurations(predicates: config.fetch(:terms)) if config.key?(:terms)
     end
   end
   # rubocop:enable Metrics/AbcSize

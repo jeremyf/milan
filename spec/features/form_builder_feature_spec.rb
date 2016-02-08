@@ -11,7 +11,7 @@ RSpec.describe Milan, type: :feature do
     its(:partial_suffix) { should eq('plan_of_study') }
     it { should be_a(Milan::FormBuilder) }
     its(:contracts) { should eq(config.fetch(:work_types)[0].fetch(:forms)[0].fetch(:contracts)) }
-    its(:terms) { should be_a(Enumerable) }
+    its(:predicates) { should be_a(Enumerable) }
   end
 
   let(:config) do
@@ -33,21 +33,21 @@ RSpec.describe Milan, type: :feature do
               { validates: 'ND.primary_college', presence: true, cardinality: 1 }
             ]
           }],
-          terms: [
-            { term: 'ND.expected_graduation_term', cardinality: 1 },
-            { term: 'ND.underclass_level' },
-            { term: 'ND.major', cardinality: 'many' },
-            { term: 'ND.minor', cardinality: 'many' },
-            { term: 'ND.primary_college', cardinality: 1 }
+          predicates: [
+            { predicate: 'ND.expected_graduation_term', cardinality: 1 },
+            { predicate: 'ND.underclass_level' },
+            { predicate: 'ND.major', cardinality: 'many' },
+            { predicate: 'ND.minor', cardinality: 'many' },
+            { predicate: 'ND.primary_college', cardinality: 1 }
           ]
         }],
-        terms: [{
-          term: 'ND.primary_college', cardinality: 1,
+        predicates: [{
+          predicate: 'ND.primary_college', cardinality: 1,
           label: 'Primary College'
         }]
       }],
-      terms: [{
-        term: 'ND.underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], cardinality: 1
+      predicates: [{
+        predicate: 'ND.underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], cardinality: 1
       }]
     }
   end
