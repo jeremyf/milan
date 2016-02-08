@@ -23,6 +23,8 @@ module Milan
 
     # :reek:NestedIterators: { exclude: [ 'Milan::PredicateAggregator#build_configuration_for' ] }
     # :reek:TooManyStatements: { exclude: [ 'Milan::PredicateAggregator#build_configuration_for' ] }
+    #
+    # TODO: Extract a PredicateResolver based on the configuration
     def build_configuration_for(predicate:)
       key = predicate.fetch(:predicate)
       aggregate_predicate_config = [predicate]
