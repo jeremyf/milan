@@ -1,9 +1,12 @@
-require 'milan/predicate_set'
-require 'milan/predicate'
+require 'milan/registry'
+
 module Milan
   # Responsible for aggregating the configuration information for the given predicates
   class PredicateAggregator
-    def initialize(predicates:)
+    include Milan::Registry.inject(:predicate_set_builder, :predicate_builder)
+
+    def initialize(predicates:, predicate_set_builder:, predicate_builder:)
+      super # required for the Container injection
       self.predicates = predicates
       self.additional_predicates_configurations = []
     end
@@ -14,7 +17,7 @@ module Milan
 
     def finalize
       data = predicates.map { |predicate| build_configuration_for(predicate: predicate) }
-      PredicateSet.new(predicates: data)
+      predicate_set_builder.call(predicates: data)
     end
 
     private
@@ -33,7 +36,8 @@ module Milan
         next unless additional_predicate_config
         aggregate_predicate_config.unshift(additional_predicate_config)
       end
-      Predicate.new(**merge_predicate(aggregate_predicate_config))
+
+      predicate_builder.call(**merge_predicate(aggregate_predicate_config))
     end
 
     # :reek:UtilityFunction: { exclude: [ 'Milan::PredicateAggregator#merge_predicate' ] }
