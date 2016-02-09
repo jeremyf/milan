@@ -73,7 +73,7 @@ I have a hazy plan for that but it is not yet complete.
     }]
   }],
   predicates: [
-    { predicate: 'DC::title' },
+    { predicate: 'DC::title', type: 'String' },
     { predicate: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key_fragment: 'ND::underclass_level' },
     { predicate: 'ND::expected_graduation_term', translation_key_fragment: 'ND::ulra.expected_graduation_term' },
     { predicate: 'ND::major', translation_key_fragment: 'ND::major' },

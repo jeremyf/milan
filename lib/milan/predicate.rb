@@ -9,6 +9,7 @@ module Milan
   # * the parameter key of the predicate (as used for HTML form submission)
   class Predicate
     DEFAULT_CARDINALITY = "many".freeze
+    DEFAULT_TYPE = "String".freeze
 
     # @api private
     # I'm not certain if we should assert equality based on the hash or on something at a more primative level.
@@ -21,18 +22,29 @@ module Milan
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
       self.translator = translator
+      self.type = keywords.fetch(:type, DEFAULT_TYPE)
     end
 
     def to_h
-      { predicate: predicate, param_key: param_key, translation_key_fragment: translation_key_fragment, cardinality: cardinality }
+      {
+        predicate: predicate, param_key: param_key, translation_key_fragment: translation_key_fragment, cardinality: cardinality,
+        type: type
+      }
     end
 
     attr_reader :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
+
+    # When coercing the object portion of the triple (<subject><predicate><object>), what is the expected type for this given object
+    #
+    # @todo I believe, going forward, I want to make use of the dry-types gem (https://github.com/dryrb/dry-types)
+    #
+    # @see Milan::Predicate::DEFAULT_TYPE
+    attr_reader :type
     alias name predicate
 
     private
 
-    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
+    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key, :type
 
     public
 

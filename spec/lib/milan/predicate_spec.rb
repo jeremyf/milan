@@ -30,11 +30,11 @@ module Milan
     [
       {
         given: { predicate: 'title' },
-        to_h: { predicate: 'title', cardinality: 'many', translation_key_fragment: 'title', param_key: 'title' }
+        to_h: { predicate: 'title', cardinality: 'many', translation_key_fragment: 'title', param_key: 'title', type: 'String' }
       }, {
         given: { predicate: 'title', cardinality: 1, param_key: 'dc_title', translation_key_fragment: 'ulra.title' },
         to_h: {
-          predicate: 'title', cardinality: 1, translation_key_fragment: 'ulra.title', param_key: 'dc_title'
+          predicate: 'title', cardinality: 1, translation_key_fragment: 'ulra.title', param_key: 'dc_title', type: 'String'
         }
       }
     ].each_with_index do |spec_config, index|
@@ -47,6 +47,7 @@ module Milan
 
     [
       { left: { predicate: 'title' }, right: { predicate: 'title' }, equality: true },
+      { left: { predicate: 'title', type: 'String' }, right: { predicate: 'title', type: 'Boolean' }, equality: false },
       { left: { predicate: 'title', cardinality: 1 }, right: { predicate: 'title' }, equality: false }
     ].each_with_index do |spec_config, index|
       left = spec_config.fetch(:left)
