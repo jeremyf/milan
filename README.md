@@ -74,11 +74,11 @@ I have a hazy plan for that but it is not yet complete.
   }],
   predicates: [
     { predicate: 'DC::title' },
-    { predicate: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key: 'ND::underclass_level' },
-    { predicate: 'ND::expected_graduation_term', translation_key: 'ND::ulra.expected_graduation_term' },
-    { predicate: 'ND::major', translation_key: 'ND::major' },
-    { predicate: 'ND::minor', translation_key: 'ND::minor' },
-    { predicate: 'ND::primary_college', translation_key: 'ND::primary_college', indexing_strategies: ['text'] }
+    { predicate: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'], translation_key_fragment: 'ND::underclass_level' },
+    { predicate: 'ND::expected_graduation_term', translation_key_fragment: 'ND::ulra.expected_graduation_term' },
+    { predicate: 'ND::major', translation_key_fragment: 'ND::major' },
+    { predicate: 'ND::minor', translation_key_fragment: 'ND::minor' },
+    { predicate: 'ND::primary_college', translation_key_fragment: 'ND::primary_college', indexing_strategies: ['text'] }
   ]
 }
 ```
