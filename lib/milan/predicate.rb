@@ -15,13 +15,13 @@ module Milan
     # I'm not certain if we should assert equality based on the hash or on something at a more primative level.
     include Dry::Equalizer(:to_h)
 
-    def initialize(predicate:, translator: default_translator, **keywords)
+    def initialize(predicate:, predicate_translator: default_predicate_translator, **keywords)
       self.predicate = predicate
       self.keywords = keywords
       self.param_key = keywords.fetch(:param_key, predicate)
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
-      self.translator = translator
+      self.predicate_translator = predicate_translator
       self.type = keywords.fetch(:type, DEFAULT_TYPE)
     end
 
@@ -64,13 +64,13 @@ module Milan
     private
 
     def translate(key_fragments:)
-      translator.call(predicate: self, key_fragments: key_fragments.flatten.compact)
+      predicate_translator.call(predicate: self, key_fragments: key_fragments.flatten.compact)
     end
 
-    attr_accessor :translator
+    attr_accessor :predicate_translator
 
-    # :reek:UtilityFunction: { exclude: [ 'Milan::Predicate#default_translator' ] }
-    def default_translator
+    # :reek:UtilityFunction: { exclude: [ 'Milan::Predicate#default_predicate_translator' ] }
+    def default_predicate_translator
       TranslationAssistant.method(:for_predicate)
     end
   end
