@@ -59,7 +59,7 @@ module Milan
     end
 
     def inspect
-      "<#Milan::FormInstance attributes=#{attributes.inspect}"
+      "<#Milan::FormInstance attributes=#{attributes.inspect} form_builder=#{form_builder.inspect}"
     end
 
     alias to_s inspect
