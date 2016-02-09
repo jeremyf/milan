@@ -112,6 +112,7 @@ en:
   - [ ] Each field can render via SimpleForm parameters
 - [ ] Attributes
   - [ ] Existing predicates and corresponding values are accessible
+  - [ ] Keep the intersection of user given terms and available predicates
 - [ ] Validation
   - [ ] Validate predicate values
 - [ ] Submission
