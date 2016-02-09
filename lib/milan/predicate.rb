@@ -27,6 +27,15 @@ module Milan
       { predicate: predicate, param_key: param_key, translation_key_fragment: translation_key_fragment, cardinality: cardinality }
     end
 
+    attr_reader :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
+    alias name predicate
+
+    private
+
+    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
+
+    public
+
     def label(key_fragment = nil)
       translate(key_fragments: [key_fragment, :label])
     end
@@ -40,16 +49,12 @@ module Milan
       translate(key_fragments: [])
     end
 
-    attr_reader :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
-    alias name predicate
-
     private
 
     def translate(key_fragments:)
       translator.call(predicate: self, key_fragments: key_fragments.flatten.compact)
     end
 
-    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
     attr_accessor :translator
 
     # :reek:UtilityFunction: { exclude: [ 'Milan::Predicate#default_translator' ] }
