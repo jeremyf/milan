@@ -2,6 +2,7 @@ require 'dry/container'
 require 'dry/auto_inject'
 require 'milan/predicate_set'
 require 'milan/predicate'
+require 'milan/translation_assistant'
 
 module Milan
   # A container module for registrations related to Milan. The idea is to provide a clear location for both defining interactions
@@ -10,11 +11,13 @@ module Milan
   #
   # @todo Introduce thred safety and initializer behavior for Rails.
   module Registry
+    # :reek:TooManyStatements: { exclude: [ 'Milan::Registry#self.registration_container' ] }
     def self.registration_container
       @registration_container ||= Dry::Container.new.tap do |container|
         container.register(:predicate_aggregate_builder, -> { Milan::PredicateAggregator.method(:new) })
         container.register(:predicate_set_builder, Milan::PredicateSet.method(:new))
         container.register(:predicate_builder, Milan::Predicate.method(:new))
+        container.register(:predicate_translator, Milan::TranslationAssistant.method(:for_predicate))
       end
     end
     private_class_method :registration_container
