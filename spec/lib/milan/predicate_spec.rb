@@ -3,6 +3,23 @@ require 'milan/predicate'
 
 module Milan
   RSpec.describe Predicate do
+    let(:translator) { double(call: true) }
+    subject { described_class.new(predicate: 'title', translator: translator) }
+    its(:default_translator) { should respond_to(:call) }
+
+    [:label, :hint].each do |method_name|
+      context "##{method_name}" do
+        it 'can be called without a parameter' do
+          subject.public_send(method_name)
+          expect(translator).to have_received(:call).with(predicate: subject, key_fragments: [method_name])
+        end
+        it "uses a single parameter to build the translator's key_fragments" do
+          subject.public_send(method_name, :form)
+          expect(translator).to have_received(:call).with(predicate: subject, key_fragments: [:form, method_name])
+        end
+      end
+    end
+
     [
       {
         given: { predicate: 'title' },
