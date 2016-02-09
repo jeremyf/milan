@@ -1,5 +1,6 @@
 require 'hanami/utils/string'
 require 'milan/registry'
+require 'milan/form_instance'
 
 module Milan
   # Responsible for building an object that can be used to build a form object.
@@ -24,6 +25,11 @@ module Milan
 
     def contracts
       config.fetch(:contracts)
+    end
+
+    def new(**keywords)
+      # TODO: Take the intersection of the given keywords keys and the predicates.param_keys
+      Milan::FormInstance.new(form_builder: self, **keywords)
     end
 
     attr_reader :predicates

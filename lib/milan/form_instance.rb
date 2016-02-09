@@ -9,13 +9,14 @@ module Milan
     end
     private_constant :Errors
 
-    def initialize(form_builder:, attributes:)
+    def initialize(form_builder:, **attributes)
       self.form_builder = form_builder
+      # TODO: Need to keep only the predicates available for the form_builder
       self.attributes = attributes
     end
 
     def attribute_keys
-      []
+      attributes.keys
     end
 
     # def singleton_class
@@ -56,6 +57,10 @@ module Milan
       return true if attribute_keys.include?(method_name)
       return true if FormInstance.instance_methods.include?(method_name)
       false
+    end
+
+    def method_missing(method_name, *args, &block)
+      attributes.fetch(method_name) { super }
     end
 
     def inspect

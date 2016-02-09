@@ -5,8 +5,11 @@ module Milan
   RSpec.describe FormInstance do
     let(:model_name) { double('ModelName', human: 'Hello', singular: 'Hello', plural: 'Hello', to_str: 'Hello') }
     let(:form_builder) { double('FormBuilder', model_name: model_name, model_class: double(model_name: model_name)) }
-    subject { described_class.new(form_builder: form_builder, attributes: {}) }
+    subject { described_class.new(form_builder: form_builder, title: 'String') }
     its(:inspect) { should be_a(String) }
+    its(:attributes) { should eq(title: 'String') }
+    its(:attribute_keys) { should eq([:title]) }
+    its(:title) { should eq('String') }
 
     it 'implements a custom respond_to' do
       expect(subject).to_not respond_to(:foo)

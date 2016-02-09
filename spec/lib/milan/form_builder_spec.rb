@@ -18,5 +18,11 @@ module Milan
       end
     end
     its(:predicates) { should be_a(PredicateSet) }
+
+    context '#new' do
+      it 'builds a new form instance' do
+        expect(subject.new(title: 'Tuesday').title).to eq('Tuesday')
+      end
+    end
   end
 end
