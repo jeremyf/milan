@@ -101,3 +101,28 @@ en:
         label:
         hint:
 ```
+
+## Roadmap
+
+### Form concerns
+
+- [ ] Rendering
+  - [ ] Render input fields in predictable order
+  - [ ] Leverage translations for label and hints
+  - [ ] Each field can render via SimpleForm parameters
+- [ ] Attributes
+  - [ ] Existing predicates and corresponding values are accessible
+- [ ] Validation
+  - [ ] Validate predicate values
+- [ ] Submission
+  - [ ] Pass the resulting data structure to a repository layer
+
+### Display concerns
+
+- [ ] Rendering
+  - [ ] Render regions and predicates in predictable order
+  - [ ] Leverage translations for label and hints
+
+### Type Coercion
+
+- [ ] Apply coercion to the form and display object when the attributes are loaded from the buffer
