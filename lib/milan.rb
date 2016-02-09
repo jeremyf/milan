@@ -10,7 +10,7 @@ module Milan
     work_type_config = work_types.find { |types| types.fetch(:work_type) == work_type }
     form_config = work_type_config.fetch(:forms).find { |obj| obj.fetch(:form) == form }
     FormBuilder.new(config: form_config) do
-      append_additional_predicates_configurations(predicates: work_type_config.fetch(:predicates)) if form_config.key?(:predicates)
+      append_additional_predicates_configurations(predicates: work_type_config.fetch(:predicates)) if work_type_config.key?(:predicates)
       append_additional_predicates_configurations(predicates: config.fetch(:predicates)) if config.key?(:predicates)
     end
   end
