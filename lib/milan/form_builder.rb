@@ -1,12 +1,14 @@
 require 'hanami/utils/string'
-require 'milan/predicate_aggregator'
+require 'milan/container'
 
 module Milan
   # Responsible for building an object that can be used to build a form object.
   #
   # Think of this class as building another class-like object.
   class FormBuilder
-    def initialize(config:, predicate_aggregate_builder: Milan::PredicateAggregator.method(:new), &configuration_block)
+    include Milan::Container.inject(:predicate_aggregate_builder)
+
+    def initialize(config:, predicate_aggregate_builder:, &configuration_block)
       self.config = config
       self.name = config.fetch(:form)
       self.partial_suffix = config.fetch(:partial_suffix, name)
