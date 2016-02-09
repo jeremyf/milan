@@ -9,6 +9,8 @@ module Milan
   class Predicate
     DEFAULT_CARDINALITY = "many".freeze
 
+    # @api private
+    # I'm not certain if we should assert equality based on the hash or on something at a more primative level.
     include Dry::Equalizer(:to_h)
 
     def initialize(predicate:, **keywords)
