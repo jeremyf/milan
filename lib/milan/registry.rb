@@ -13,9 +13,15 @@ module Milan
     # :reek:TooManyStatements: { exclude: [ 'Milan::Registry#self.registration_container' ] }
     def self.registration_container
       @registration_container ||= Dry::Container.new.tap do |container|
-        container.register(:predicate_aggregate_builder, -> { Milan::PredicateAggregator.method(:new) })
+        container.register(:predicate_aggregate_builder, proc do
+          require 'milan/predicate_aggregator'
+          Milan::PredicateAggregator.method(:new)
+        end)
         container.register(:predicate_set_builder, Milan::PredicateSet.method(:new))
-        container.register(:predicate_builder, -> { Milan::Predicate.method(:new) })
+        container.register(:predicate_builder, proc do
+          require 'milan/predicate'
+          Milan::Predicate.method(:new)
+        end)
         container.register(:predicate_translator, Milan::TranslationAssistant.method(:for_predicate))
       end
     end

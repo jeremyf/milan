@@ -18,6 +18,7 @@ AllCops:
     - 'vendor/**/*'
     - 'tmp/**/*'
     - 'bin/**/*'
+    - 'lib/milan/registry.rb'
   TargetRubyVersion: 2.2
 Rails:
   Enabled: false
