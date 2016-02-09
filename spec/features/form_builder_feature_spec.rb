@@ -3,7 +3,6 @@ require 'milan'
 
 RSpec.describe Milan, type: :feature do
   context '.form_for' do
-    let(:context) { double('The Context for the Form') }
     let(:requested_by) { double('Requester') }
 
     subject { described_class.form_for(work_type: "ULRA Application", form: 'Plan of Study', config: config) }
