@@ -1,5 +1,6 @@
 require 'dry/equalizer'
 require 'milan/registry'
+require 'hanami/utils/string'
 
 module Milan
   # Responsible for containing the definition of a Predicate.
@@ -45,7 +46,11 @@ module Milan
 
     private
 
-    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key, :type
+    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :type
+
+    def param_key=(input)
+      @param_key = Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore
+    end
 
     public
 

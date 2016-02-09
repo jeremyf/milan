@@ -28,8 +28,8 @@ module Milan
 
     [
       {
-        given: { predicate: 'title' },
-        to_h: { predicate: 'title', cardinality: 'many', translation_key_fragment: 'title', param_key: 'title', type: 'String' }
+        given: { predicate: 'dc:title' },
+        to_h: { predicate: 'dc:title', cardinality: 'many', translation_key_fragment: 'dc:title', param_key: 'dc_title', type: 'String' }
       }, {
         given: { predicate: 'title', cardinality: 1, param_key: 'dc_title', translation_key_fragment: 'ulra.title' },
         to_h: {
