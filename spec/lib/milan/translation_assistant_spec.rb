@@ -25,6 +25,9 @@ RSpec.describe Milan::TranslationAssistant do
       }, {
         translations: { predicates: { dc_title: {} } }, key_fragments: %w(form label), expected: 'dc_title'
       }, {
+        # This is a debugging scenario; I want to see what it all resolves to.
+        translations: { predicates: { dc_title: { label: "Goodbye" } } }, key_fragments: [], expected: { label: "Goodbye" }
+      }, {
         translations: { predicates: {} }, key_fragments: %w(form label), expected: 'dc_title'
       }
     ].each_with_index do |spec_config, index|

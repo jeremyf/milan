@@ -35,6 +35,11 @@ module Milan
       translate(key_fragments: [key_fragment, :hint])
     end
 
+    # A mechanism for seeing all of the resolved translations for this predicate; Think of this as a debugging tool.
+    def translations
+      translate(key_fragments: [])
+    end
+
     attr_reader :predicate, :keywords, :translation_key_fragment, :cardinality, :param_key
     alias name predicate
 

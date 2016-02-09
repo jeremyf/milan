@@ -20,6 +20,13 @@ module Milan
       end
     end
 
+    context '#translations' do
+      it 'exposes a means of getting all of the contextual translations' do
+        subject.translations
+        expect(translator).to have_received(:call).with(predicate: subject, key_fragments: [])
+      end
+    end
+
     [
       {
         given: { predicate: 'title' },
