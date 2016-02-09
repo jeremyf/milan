@@ -1,5 +1,5 @@
 require 'dry/equalizer'
-require 'milan/translation_assistant'
+require 'milan/registry'
 
 module Milan
   # Responsible for containing the definition of a Predicate.
@@ -14,14 +14,15 @@ module Milan
     # @api private
     # I'm not certain if we should assert equality based on the hash or on something at a more primative level.
     include Dry::Equalizer(:to_h)
+    include Milan::Registry.inject(:predicate_translator)
 
-    def initialize(predicate:, predicate_translator: default_predicate_translator, **keywords)
+    def initialize(predicate:, predicate_translator:, **keywords)
+      super # becuase of the injection of predicate_translator
       self.predicate = predicate
       self.keywords = keywords
       self.param_key = keywords.fetch(:param_key, predicate)
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
-      self.predicate_translator = predicate_translator
       self.type = keywords.fetch(:type, DEFAULT_TYPE)
     end
 
@@ -65,13 +66,6 @@ module Milan
 
     def translate(key_fragments:)
       predicate_translator.call(predicate: self, key_fragments: key_fragments.flatten.compact)
-    end
-
-    attr_accessor :predicate_translator
-
-    # :reek:UtilityFunction: { exclude: [ 'Milan::Predicate#default_predicate_translator' ] }
-    def default_predicate_translator
-      TranslationAssistant.method(:for_predicate)
     end
   end
 end

@@ -5,7 +5,6 @@ module Milan
   RSpec.describe Predicate do
     let(:predicate_translator) { double(call: true) }
     subject { described_class.new(predicate: 'title', predicate_translator: predicate_translator) }
-    its(:default_predicate_translator) { should respond_to(:call) }
 
     [:label, :hint].each do |method_name|
       context "##{method_name}" do
