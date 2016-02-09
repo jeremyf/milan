@@ -82,3 +82,22 @@ I have a hazy plan for that but it is not yet complete.
   ]
 }
 ```
+
+Another key consideration is thinking about the translations. It gets rather gnarly but providing proper guidance is vital. I'm looking at what it means to keep things "close"; The translation_key_fragment is one aspect of keeping translations close. The second is contexts for reasonable fallback.
+
+```ruby
+en:
+  predicates:
+    dc_title:
+      ulra:
+        label:
+        hint:
+      label:
+      hint:
+      form:
+        label:
+        hint:
+      display:
+        label:
+        hint:
+```

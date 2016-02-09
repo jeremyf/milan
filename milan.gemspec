@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "hanami-utils", "~> 0.6"
   spec.add_dependency "dry-equalizer", "~> 0.2"
+  spec.add_dependency "i18n"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
