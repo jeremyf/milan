@@ -1,12 +1,12 @@
 require 'hanami/utils/string'
-require 'milan/container'
+require 'milan/registry'
 
 module Milan
   # Responsible for building an object that can be used to build a form object.
   #
   # Think of this class as building another class-like object.
   class FormBuilder
-    include Milan::Container.inject(:predicate_aggregate_builder)
+    include Milan::Registry.inject(:predicate_aggregate_builder)
 
     def initialize(config:, predicate_aggregate_builder:, &configuration_block)
       self.config = config

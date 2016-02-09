@@ -1,9 +1,9 @@
-require 'milan/container'
+require 'milan/registry'
 
 module Milan
   # Responsible for aggregating the configuration information for the given predicates
   class PredicateAggregator
-    include Milan::Container.inject(:predicate_set_builder, :predicate_builder)
+    include Milan::Registry.inject(:predicate_set_builder, :predicate_builder)
 
     def initialize(predicates:, predicate_set_builder:, predicate_builder:)
       super # required for the Container injection

@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'milan/container'
+require 'milan/registry'
 
-RSpec.describe Milan::Container do
-  it 'exposes .call as a convenience method' do
-    expect(described_class.call(:predicate_builder, predicate: 'dc_title')).to be_a(Milan::Predicate)
+RSpec.describe Milan::Registry do
+  it 'exposes .resolve as a convenience method' do
+    expect(described_class.resolve(:predicate_builder, predicate: 'dc_title')).to be_a(Milan::Predicate)
   end
 
   context '.resolver_for' do
