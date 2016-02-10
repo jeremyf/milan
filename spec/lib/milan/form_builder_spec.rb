@@ -19,6 +19,10 @@ module Milan
     end
     its(:predicates) { should be_a(PredicateSet) }
 
+    it 'aliases predicate_set as predicates' do
+      expect(subject.method(:predicate_set)).to eq(subject.method(:predicates))
+    end
+
     context '#new' do
       it 'builds a new form instance' do
         expect(subject.new(title: 'Tuesday').title).to eq('Tuesday')

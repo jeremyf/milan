@@ -34,6 +34,7 @@ module Milan
     end
 
     attr_reader :predicates
+    alias predicate_set predicates
 
     private
 
