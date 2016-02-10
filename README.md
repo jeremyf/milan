@@ -8,7 +8,7 @@
 [![APACHE 2 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 [![Contributing Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 
-A model/form object builder through configuration files.
+Modeling through configuration.
 
 ## Problems I am Attempting to Address via Milan
 
@@ -19,6 +19,8 @@ As we have been working on workflows and data modeling, we've encountered some p
 * Repetitious Form objects that have a very similar structure
 * Documenting an API for programatic interaction
 * A nuanced conflict with SimpleForm and ActiveRecord translations when breaking apart a single concept into constituent parts
+
+In essence, we've encountered the need for a Data Dictionary; But one that we can leverage in building our applications.
 
 Below is a Ruby hash demonstrating how I am proposing declaring Work Types and their constituent forms in a consistent manner.
 I have not included, in this demonstration, more complicated concepts such as cardinality based labels, internationalization, nor input vs. display labels.
