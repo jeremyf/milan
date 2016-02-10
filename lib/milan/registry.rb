@@ -1,5 +1,6 @@
 require 'dry/container'
 require 'dry/auto_inject'
+require 'hanami/utils/string'
 
 module Milan
   # A container module for registrations related to Milan. The idea is to provide a clear location for both defining interactions
@@ -16,6 +17,7 @@ module Milan
         container.register(:predicate_set_builder) { Milan::PredicateSet.method(:new) }
         container.register(:predicate_builder) { Milan::Predicate.method(:new) }
         container.register(:predicate_translator) { Milan::TranslationAssistant.method(:for_predicate) }
+        container.register(:to_method_name, ->(input) { Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore })
       end
     end
     private_class_method :registration_container

@@ -2,6 +2,19 @@ require 'spec_helper'
 require 'milan/registry'
 
 RSpec.describe Milan::Registry do
+  context 'resolvers' do
+    context ':to_method_name' do
+      [
+        ["dc.title", "dc_title"],
+        ["dc::title", "dc_title"]
+      ].each_with_index do |(from_value, to_value), index|
+        it "convertes #{from_value.inspect} to #{to_value.inspect} (Scenario ##{index})" do
+          expect(described_class.resolve(:to_method_name, from_value)).to eq(to_value)
+        end
+      end
+    end
+  end
+
   it 'exposes .resolve as a convenience method' do
     expect(described_class.resolve(:predicate_builder, predicate: 'dc_title')).to be_a(Milan::Predicate)
   end
