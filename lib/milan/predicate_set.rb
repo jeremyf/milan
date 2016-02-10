@@ -1,5 +1,5 @@
 module Milan
-  # The collection of predicates
+  # The collection of predicates and mechanisms for accessing them
   class PredicateSet
     def initialize(predicates:)
       self.predicates = predicates
@@ -15,6 +15,10 @@ module Milan
 
     def [](predicate)
       find { |element| element.predicate == predicate }
+    end
+
+    def key?(predicate)
+      any? { |element| element.predicate == predicate }
     end
 
     def param_keys

@@ -28,5 +28,14 @@ module Milan
         expect(subject['title']).to eq(nil)
       end
     end
+
+    context '#key?' do
+      it 'will return true if it exists' do
+        expect(subject.key?('DC.title')).to eq(true)
+      end
+      it 'will return false if it does not exist' do
+        expect(subject.key?('bogus')).to eq(false)
+      end
+    end
   end
 end
