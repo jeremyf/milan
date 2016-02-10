@@ -9,16 +9,16 @@ module Milan
     extend Forwardable
     def_delegators :predicates, :each, :size, :length
 
-    def fetch(predicate)
-      self[predicate] || (raise KeyError, predicate)
+    def fetch(name)
+      self[name] || (raise KeyError, name)
     end
 
-    def [](predicate)
-      find { |element| element.predicate == predicate }
+    def [](name)
+      find { |element| element.name == name }
     end
 
-    def key?(predicate)
-      any? { |element| element.predicate == predicate }
+    def key?(name)
+      any? { |element| element.name == name }
     end
 
     def param_keys
