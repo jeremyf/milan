@@ -6,10 +6,6 @@ module Milan
     let(:predicate_translator) { double(call: true) }
     subject { described_class.new(predicate: 'title', predicate_translator: predicate_translator) }
 
-    it 'has #attribute_method_name which is an alias of #param_key' do
-      expect(subject.method(:attribute_method_name)).to eq(subject.method(:param_key))
-    end
-
     [:label, :hint].each do |method_name|
       context "##{method_name}" do
         it 'can be called without a parameter' do
@@ -33,11 +29,15 @@ module Milan
     [
       {
         given: { predicate: 'dc:title' },
-        to_h: { predicate: 'dc:title', cardinality: 'many', translation_key_fragment: 'dc:title', param_key: 'dc_title', type: 'String' }
+        to_h: {
+          predicate: 'dc:title', cardinality: 'many', translation_key_fragment: 'dc:title', param_key: 'dc_title', type: 'String',
+          attribute_method_name: 'dc_title'
+        }
       }, {
         given: { predicate: 'title', cardinality: 1, param_key: 'dc_title', translation_key_fragment: 'ulra.title' },
         to_h: {
-          predicate: 'title', cardinality: 1, translation_key_fragment: 'ulra.title', param_key: 'dc_title', type: 'String'
+          predicate: 'title', cardinality: 1, attribute_method_name: 'dc_title', translation_key_fragment: 'ulra.title',
+          param_key: 'dc_title', type: 'String'
         }
       }
     ].each_with_index do |spec_config, index|

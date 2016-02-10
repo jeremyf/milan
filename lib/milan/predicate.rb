@@ -1,6 +1,5 @@
 require 'dry/equalizer'
 require 'milan/registry'
-require 'hanami/utils/string'
 
 module Milan
   # Responsible for containing the definition of a Predicate.
@@ -20,6 +19,7 @@ module Milan
       super # becuase of the injection of predicate_translator
       self.predicate = predicate
       self.param_key = keywords.fetch(:param_key, predicate)
+      self.attribute_method_name = keywords.fetch(:attribute_method_name, param_key)
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
       self.type = keywords.fetch(:type, DEFAULT_TYPE)
@@ -29,7 +29,7 @@ module Milan
     def to_h
       {
         predicate: predicate, param_key: param_key, translation_key_fragment: translation_key_fragment, cardinality: cardinality,
-        type: type
+        type: type, attribute_method_name: attribute_method_name
       }
     end
 
@@ -78,18 +78,21 @@ module Milan
 
     alias name predicate
 
-    # @!attribute [r] attribute_method_name
     #   @return [String] a string that can be used for the Ruby method name of this attribute.
     #   @note attribute_method_name is an alias of param_key, but is something that I don't want to overload in implementation.
     #     HTML input names are far more forgiving than Ruby method names.
-    alias attribute_method_name param_key
+    attr_reader :attribute_method_name
 
     private
 
     attr_writer :predicate, :translation_key_fragment, :cardinality, :type
 
     def param_key=(input)
-      @param_key = Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore
+      @param_key = Milan::Registry.resolve(:to_method_name, input)
+    end
+
+    def attribute_method_name=(input)
+      @attribute_method_name = Milan::Registry.resolve(:to_method_name, input)
     end
 
     # !@group Translations
