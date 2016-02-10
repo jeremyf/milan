@@ -11,6 +11,10 @@ module Milan
     its(:attribute_keys) { should eq([:title]) }
     its(:title) { should eq('String') }
 
+    it 'does not implement setter methods for the given attributes' do
+      expect(subject).to_not respond_to(:title=)
+    end
+
     it 'implements a custom respond_to' do
       expect(subject).to_not respond_to(:foo)
     end
