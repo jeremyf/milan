@@ -30,14 +30,14 @@ module Milan
       {
         given: { predicate: 'dc:title' },
         to_h: {
-          predicate: 'dc:title', cardinality: 'many', translation_key_fragment: 'dc:title', param_key: 'dc_title', type: 'String',
+          predicate: 'dc:title', cardinality: 'many', translation_key_fragment: 'dc:title', type: 'String',
           attribute_method_name: 'dc_title'
         }
       }, {
-        given: { predicate: 'title', cardinality: 1, param_key: 'dc_title', translation_key_fragment: 'ulra.title' },
+        given: { predicate: 'title', cardinality: 1, attribute_method_name: 'dc_title', translation_key_fragment: 'ulra.title' },
         to_h: {
           predicate: 'title', cardinality: 1, attribute_method_name: 'dc_title', translation_key_fragment: 'ulra.title',
-          param_key: 'dc_title', type: 'String'
+          type: 'String'
         }
       }
     ].each_with_index do |spec_config, index|

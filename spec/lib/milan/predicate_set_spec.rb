@@ -4,7 +4,7 @@ require 'milan/predicate'
 
 module Milan
   RSpec.describe PredicateSet do
-    let(:predicate1) { Predicate.new(predicate: 'DC.title', param_key: 'title') }
+    let(:predicate1) { Predicate.new(predicate: 'DC.title', attribute_method_name: 'title') }
     let(:predicate2) { Predicate.new(predicate: 'DC.abstract') }
     subject { PredicateSet.new(predicates: [predicate1, predicate2]) }
 

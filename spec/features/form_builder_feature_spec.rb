@@ -64,7 +64,7 @@ RSpec.describe Milan, type: :feature do
         }]
       }],
       predicates: [
-        { predicate: 'DC::title', type: 'String', param_key: 'title' },
+        { predicate: 'DC::title', type: 'String', attribute_method_name: 'title' },
         {
           predicate: 'ND::underclass_level', options: ['First Year', 'Sophomore', 'Junior', 'Senior', '5th Year'],
           translation_key_fragment: 'ND::underclass_level'

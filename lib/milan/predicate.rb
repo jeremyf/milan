@@ -18,8 +18,7 @@ module Milan
     def initialize(predicate:, predicate_translator:, **keywords)
       super # becuase of the injection of predicate_translator
       self.predicate = predicate
-      self.param_key = keywords.fetch(:param_key, predicate)
-      self.attribute_method_name = keywords.fetch(:attribute_method_name, param_key)
+      self.attribute_method_name = keywords.fetch(:attribute_method_name, predicate)
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
       self.type = keywords.fetch(:type, DEFAULT_TYPE)
@@ -28,7 +27,7 @@ module Milan
     # There are a few aliased methods; I'm not including those as they are not a part of the constructor.
     def to_h
       {
-        predicate: predicate, param_key: param_key, translation_key_fragment: translation_key_fragment, cardinality: cardinality,
+        predicate: predicate, translation_key_fragment: translation_key_fragment, cardinality: cardinality,
         type: type, attribute_method_name: attribute_method_name
       }
     end
@@ -50,10 +49,20 @@ module Milan
     # @see DEFAULT_CARDINALITY
     attr_reader :cardinality
 
-    # The input parameter key to be used when submitting a form.
+    # When coercing the object portion of the triple (<subject><predicate><object>), what is the expected type for this given object
+    #
+    # @todo I believe, going forward, I want to make use of the dry-types gem (https://github.com/dryrb/dry-types)
+    #
+    # @see Milan::Predicate::DEFAULT_TYPE
+    attr_reader :type
+
+    alias name predicate
+
+    # A string that can be used for the Ruby method name of this attribute. It is also suitable for use as the parameter key
     #
     # @example
-    #   # Given Predicate#param_key == 'title' then rendering the input would be analog to the following:
+    #   # Given Predicate#attribute_method_name == 'title'
+    #   # Then rendering the input would be analog to the following:
     #
     #   ```html
     #   <input name="title">
@@ -66,30 +75,15 @@ module Milan
     #   # There is an assumption that the param_keys can be nested; In Rails forms are submitted with a scoping hash key derived from
     #   # the model_name. So we might end up with `{ "book": { "title": "Some Title" } }`
     #
-    # @return String
-    attr_reader :param_key
-
-    # When coercing the object portion of the triple (<subject><predicate><object>), what is the expected type for this given object
-    #
-    # @todo I believe, going forward, I want to make use of the dry-types gem (https://github.com/dryrb/dry-types)
-    #
-    # @see Milan::Predicate::DEFAULT_TYPE
-    attr_reader :type
-
-    alias name predicate
-
-    #   @return [String] a string that can be used for the Ruby method name of this attribute.
-    #   @note attribute_method_name is an alias of param_key, but is something that I don't want to overload in implementation.
-    #     HTML input names are far more forgiving than Ruby method names.
+    # @return [String]
+    # @note attribute_method_name is an alias of param_key, but is something that I don't want to overload in implementation.
+    #   HTML input names are far more forgiving than Ruby method names.
     attr_reader :attribute_method_name
+    alias param_key attribute_method_name
 
     private
 
     attr_writer :predicate, :translation_key_fragment, :cardinality, :type
-
-    def param_key=(input)
-      @param_key = Milan::Registry.resolve(:to_method_name, input)
-    end
 
     def attribute_method_name=(input)
       @attribute_method_name = Milan::Registry.resolve(:to_method_name, input)
