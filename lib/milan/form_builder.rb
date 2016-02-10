@@ -1,4 +1,3 @@
-require 'hanami/utils/string'
 require 'milan/registry'
 require 'milan/form_instance'
 
@@ -42,7 +41,7 @@ module Milan
     attr_accessor :config, :predicate_aggregator
 
     def partial_suffix=(input)
-      @partial_suffix = Hanami::Utils::String.new(input).underscore
+      @partial_suffix = Milan::Registry.resolve(:to_method_name, input)
     end
   end
 end
