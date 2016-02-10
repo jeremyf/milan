@@ -63,5 +63,11 @@ module Milan
         expect(left_predicate.equal?(right_predicate)).to eq(false)
       end
     end
+
+    it 'can initialize a new Predicate from the #to_h' do
+      new_predicate = Predicate.new(subject.to_h)
+      expect(new_predicate).to eq(subject)
+      expect(new_predicate.object_id).to_not eq(subject.object_id)
+    end
   end
 end
