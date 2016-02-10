@@ -21,8 +21,8 @@ module Milan
       any? { |element| element.name == name }
     end
 
-    def param_keys
-      map(&:param_key)
+    def attribute_method_names
+      map(&:attribute_method_name)
     end
 
     private

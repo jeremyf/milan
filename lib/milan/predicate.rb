@@ -72,8 +72,8 @@ module Milan
     #   { "title": "Some Title" }
     #   ```
     #
-    #   # There is an assumption that the param_keys can be nested; In Rails forms are submitted with a scoping hash key derived from
-    #   # the model_name. So we might end up with `{ "book": { "title": "Some Title" } }`
+    #   # There is an assumption that the attribute_method_names can be nested; In Rails forms are submitted with a scoping hash key derived
+    #   # from the model_name. So we might end up with `{ "book": { "title": "Some Title" } }`
     #
     # @return [String]
     # @note attribute_method_name is an alias of param_key, but is something that I don't want to overload in implementation.

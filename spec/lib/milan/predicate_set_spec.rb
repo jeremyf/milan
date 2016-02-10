@@ -8,7 +8,7 @@ module Milan
     let(:predicate2) { Predicate.new(predicate: 'DC.abstract') }
     subject { PredicateSet.new(predicates: [predicate1, predicate2]) }
 
-    its(:param_keys) { should eq([predicate1.param_key, predicate2.param_key]) }
+    its(:attribute_method_names) { should eq([predicate1.attribute_method_name, predicate2.attribute_method_name]) }
     it { should delegate_method(:each).to(:predicates) }
     it { should delegate_method(:length).to(:predicates) }
     it { should delegate_method(:size).to(:predicates) }

@@ -29,7 +29,7 @@ module Milan
 
     # A FormBuilder object behaves somewhat like a class; As such it exposes the ubiquitous `new` method.
     def new(**keywords)
-      # TODO: Take the intersection of the given keywords keys and the predicates.param_keys
+      # TODO: Take the intersection of the given keywords keys and the predicates.attribute_method_names
       Milan::FormInstance.new(form_builder: self, **keywords)
     end
 
