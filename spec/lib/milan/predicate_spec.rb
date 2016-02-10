@@ -6,6 +6,10 @@ module Milan
     let(:predicate_translator) { double(call: true) }
     subject { described_class.new(predicate: 'title', predicate_translator: predicate_translator) }
 
+    it 'has #attribute_method_name which is an alias of #param_key' do
+      expect(subject.method(:attribute_method_name)).to eq(subject.method(:param_key))
+    end
+
     [:label, :hint].each do |method_name|
       context "##{method_name}" do
         it 'can be called without a parameter' do

@@ -45,7 +45,9 @@ module Milan
     #
     # @see Milan::Predicate::DEFAULT_TYPE
     attr_reader :type
+
     alias name predicate
+    alias attribute_method_name param_key
 
     private
 
