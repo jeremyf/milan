@@ -23,7 +23,6 @@ module Milan
     def initialize(predicate:, predicate_translator:, **keywords)
       super # becuase of the injection of predicate_translator
       self.predicate = predicate
-      self.keywords = keywords
       self.param_key = keywords.fetch(:param_key, predicate)
       self.translation_key_fragment = keywords.fetch(:translation_key_fragment, predicate)
       self.cardinality = keywords.fetch(:cardinality, DEFAULT_CARDINALITY)
@@ -51,7 +50,7 @@ module Milan
 
     private
 
-    attr_writer :predicate, :keywords, :translation_key_fragment, :cardinality, :type
+    attr_writer :predicate, :translation_key_fragment, :cardinality, :type
 
     def param_key=(input)
       @param_key = Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore
