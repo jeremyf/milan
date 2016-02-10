@@ -6,7 +6,8 @@ RSpec.describe Milan::Registry do
     context ':to_method_name' do
       [
         ["dc.title", "dc_title"],
-        ["dc::title", "dc_title"]
+        ["dc::title", "dc_title"],
+        ["_DC::title_", "dc_title"]
       ].each_with_index do |(from_value, to_value), index|
         it "convertes #{from_value.inspect} to #{to_value.inspect} (Scenario ##{index})" do
           expect(described_class.resolve(:to_method_name, from_value)).to eq(to_value)

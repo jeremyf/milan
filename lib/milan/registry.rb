@@ -17,7 +17,10 @@ module Milan
         container.register(:predicate_set_builder) { Milan::PredicateSet.method(:new) }
         container.register(:predicate_builder) { Milan::Predicate.method(:new) }
         container.register(:predicate_translator) { Milan::TranslationAssistant.method(:for_predicate) }
-        container.register(:to_method_name, ->(input) { Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore })
+        container.register(
+          :to_method_name,
+          ->(input) { Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_').sub(/\A_/, '')).underscore.chomp('_') }
+        )
       end
     end
     private_class_method :registration_container
