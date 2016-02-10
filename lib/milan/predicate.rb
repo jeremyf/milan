@@ -8,6 +8,9 @@ module Milan
   # This includes:
   # * the name of the predicate
   # * the parameter key of the predicate (as used for HTML form submission)
+  #
+  # @todo Factor the predicate translator into a separate object. Predicate should be a struct with little behavior. Its compressed out
+  #   of convenience.
   class Predicate
     DEFAULT_CARDINALITY = "many".freeze
     DEFAULT_TYPE = "String".freeze
@@ -52,6 +55,7 @@ module Milan
       @param_key = Hanami::Utils::String.new(input.to_s.gsub(/\W+/, '_')).underscore
     end
 
+    # !@group Translations
     public
 
     def label(key_fragment = nil)
@@ -72,5 +76,6 @@ module Milan
     def translate(key_fragments:)
       predicate_translator.call(predicate: self, key_fragments: key_fragments.flatten.compact)
     end
+    # !@endgroup
   end
 end
