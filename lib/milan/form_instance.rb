@@ -9,7 +9,7 @@ module Milan
     end
     private_constant :Errors
 
-    def initialize(form_builder:, **attributes)
+    def initialize(form_builder:, attributes: {})
       self.form_builder = form_builder
       # TODO: Need to keep only the predicates available for the form_builder
       self.attributes = attributes
