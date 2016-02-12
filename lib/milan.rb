@@ -1,5 +1,5 @@
 require "milan/version"
-require 'milan/form_builder'
+require 'milan/registry'
 
 # A gem that provides an interface for building models via configuration.
 module Milan
@@ -9,7 +9,7 @@ module Milan
     work_types = config.fetch(:work_types)
     work_type_config = work_types.find { |types| types.fetch(:work_type) == work_type }
     form_config = work_type_config.fetch(:forms).find { |obj| obj.fetch(:form) == form }
-    FormBuilder.new(config: form_config) do
+    Registry.resolve(:form_builder, config: form_config) do
       append_additional_predicates_configurations(predicates: work_type_config.fetch(:predicates)) if work_type_config.key?(:predicates)
       append_additional_predicates_configurations(predicates: config.fetch(:predicates)) if config.key?(:predicates)
     end

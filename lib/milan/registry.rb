@@ -13,6 +13,7 @@ module Milan
     # multi-threaded instance) this is adequate.
     def self.registration_container
       @registration_container ||= Dry::Container.new.tap do |container|
+        container.register(:form_builder) { Milan::FormBuilder.method(:new) }
         container.register(:form_instance_builder) { Milan::FormInstance.method(:new) }
         container.register(:predicate_aggregate_builder) { Milan::PredicateAggregator.method(:new) }
         container.register(:predicate_builder) { Milan::Predicate.method(:new) }
@@ -45,6 +46,7 @@ end
 # ```console
 # ./milan/lib/milan/predicate.rb:18:in `<class:Predicate>': uninitialized constant Milan::Registry (NameError)
 # ```
+require 'milan/form_builder'
 require 'milan/form_instance'
 require 'milan/predicate_aggregator'
 require 'milan/predicate_set'
