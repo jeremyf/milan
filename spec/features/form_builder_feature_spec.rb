@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'milan'
 
 RSpec.describe Milan, type: :feature do
-  context '.form_for' do
+  context '.form_builder_for' do
     let(:requested_by) { double('Requester') }
 
-    subject { described_class.form_for(work_type: "ULRA Application", form: 'plan_of_study', config: config) }
+    subject { described_class.form_builder_for(work_type: "ULRA Application", form: 'plan_of_study', config: config) }
 
     its(:partial_suffix) { should eq('plan_of_study') }
     it { should be_a(Milan::FormBuilder) }
@@ -13,7 +13,9 @@ RSpec.describe Milan, type: :feature do
     its(:predicates) { should be_a(Enumerable) }
 
     context 'that is used to build a form object' do
-      subject { described_class.form_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World') }
+      subject do
+        described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World')
+      end
       its(:title) { should eq('Hello World') }
     end
   end
