@@ -6,9 +6,10 @@ module Milan
   #
   # Think of this class as building another class-like object.
   class FormBuilder
-    include Milan::Registry.inject(:predicate_aggregate_builder)
+    include Milan::Registry.inject(:predicate_aggregate_builder, :form_instance_builder)
 
-    def initialize(config:, predicate_aggregate_builder:, &configuration_block)
+    def initialize(config:, predicate_aggregate_builder:, form_instance_builder:, &configuration_block)
+      super
       self.config = config
       self.name = config.fetch(:form)
       self.partial_suffix = config.fetch(:partial_suffix, name)
@@ -29,7 +30,7 @@ module Milan
     # A FormBuilder object behaves somewhat like a class; As such it exposes the ubiquitous `new` method.
     def new(**attributes)
       # TODO: Take the intersection of the given keywords keys and the predicates.attribute_method_names
-      Milan::FormInstance.new(form_builder: self, attributes: attributes)
+      form_instance_builder.call(form_builder: self, attributes: attributes)
     end
 
     attr_reader :predicates
