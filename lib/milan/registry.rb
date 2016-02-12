@@ -3,6 +3,12 @@ require 'dry/auto_inject'
 require 'hanami/utils/string'
 
 module Milan
+  # Prefer an insulation layer instead of direct extension of an object
+  class Container
+    include Dry::Container::Mixin
+  end
+  private_constant :Container
+
   # A container module for registrations related to Milan. The idea is to provide a clear location for both defining interactions
   # as well as the means for doing dependency injection. I would love for more explicit interface definitions in the registry
   # but for now I'll settle with a consolidated location for that information.
@@ -12,7 +18,7 @@ module Milan
     # @todo I don't want to use the ||= as that is not a good thread safe pattern. Until I introduce an initializer (or use this in a
     # multi-threaded instance) this is adequate.
     def self.registration_container
-      @registration_container ||= Dry::Container.new.tap do |container|
+      @registration_container ||= Container.new.tap do |container|
         container.register(:form_builder) { Milan::FormBuilder.method(:new) }
         container.register(:form_instance_builder) { Milan::FormInstance.method(:new) }
         container.register(:predicate_aggregate_builder) { Milan::PredicateAggregator.method(:new) }
