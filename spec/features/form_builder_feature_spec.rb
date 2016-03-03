@@ -13,10 +13,24 @@ RSpec.describe Milan, type: :feature do
     its(:predicates) { should be_a(Enumerable) }
 
     context 'that is used to build a form object' do
-      subject do
-        described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World')
+      context 'with valid data' do
+        subject do
+          described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World')
+        end
+        its(:title) { should eq('Hello World') }
+        it 'will be valid' do
+          expect(subject.valid?).to eq(true)
+        end
       end
-      its(:title) { should eq('Hello World') }
+      context 'with invalid data' do
+        subject do
+          described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: nil)
+        end
+        its(:title) { should eq(nil) }
+        it 'will be valid' do
+          expect(subject.valid?).to eq(false)
+        end
+      end
     end
   end
 

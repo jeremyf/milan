@@ -51,6 +51,10 @@ module Milan
       Errors
     end
 
+    def valid?
+      true
+    end
+
     alias send __send__
 
     def respond_to?(method_name, *)

@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "i18n"
   spec.add_dependency "dry-auto_inject"
   spec.add_dependency "dry-container"
+  spec.add_dependency "activemodel"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
