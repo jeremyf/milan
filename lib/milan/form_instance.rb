@@ -1,3 +1,5 @@
+require 'milan/validator'
+
 module Milan
   # A work in progress to implement an ActiveModel interface
   class FormInstance < BasicObject
@@ -52,7 +54,7 @@ module Milan
     end
 
     def valid?
-      true
+      validation_messages.none?
     end
 
     alias send __send__
@@ -76,5 +78,9 @@ module Milan
     private
 
     attr_accessor :form_builder, :attributes
+
+    def validation_messages
+      ::Milan::Validator.call(attributes: attributes, form_builder: form_builder)
+    end
   end
 end

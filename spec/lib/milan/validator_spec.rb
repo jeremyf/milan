@@ -9,7 +9,7 @@ RSpec.describe Milan::Validator do
       form: "description",
       contracts: [{
         contexts: ['submit'],
-        validations: [{ validates: 'DC::title', presence: true }]
+        validations: [{ key: 'DC::title', required: true }]
       }],
       predicates: [
         { predicate: 'DC::title', attribute_method_name: 'title', type: 'String' }
@@ -18,7 +18,10 @@ RSpec.describe Milan::Validator do
   end
   it 'will return an empty array when the data is valid' do
     validator = described_class.new(attributes: { title: 'Hello' }, form_builder: form_builder)
-    expect(validator.call).to eq([])
+    expect(validator.call).to eq({})
   end
-  it 'will return a non-empty array when the data is invalid'
+  it 'will return a non-empty array when the data is invalid' do
+    validator = described_class.new(attributes: { title: '' }, form_builder: form_builder)
+    expect(validator.call).to eq("title" => ["must be filled"])
+  end
 end
