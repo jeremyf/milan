@@ -28,6 +28,8 @@ module Milan
     end
 
     # A FormBuilder object behaves somewhat like a class; As such it exposes the ubiquitous `new` method.
+    #
+    # @param attributes [Hash]
     def new(**attributes)
       # TODO: Take the intersection of the given keywords keys and the predicates.attribute_method_names
       form_instance_builder.call(form_builder: self, attributes: filter(attributes: attributes))
