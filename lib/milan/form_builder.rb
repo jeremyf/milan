@@ -36,6 +36,9 @@ module Milan
     attr_reader :predicates
     alias predicate_set predicates
 
+    extend Forwardable
+    def_delegator :predicates, :attribute_method_name_for
+
     private
 
     attr_writer :name, :predicates

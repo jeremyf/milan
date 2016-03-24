@@ -17,6 +17,10 @@ module Milan
       self[name] || (raise KeyError, name)
     end
 
+    def attribute_method_name_for(name)
+      fetch(name).attribute_method_name
+    end
+
     def [](name)
       find { |element| element.name == name }
     end
