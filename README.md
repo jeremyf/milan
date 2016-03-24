@@ -113,10 +113,11 @@ en:
   - [ ] Leverage translations for label and hints
   - [ ] Each field can render via SimpleForm parameters
 - [ ] Attributes
-  - [ ] Existing predicates and corresponding values are accessible
+  - [x] Existing predicates and corresponding values are accessible
   - [ ] Keep the intersection of user given terms and available predicates
 - [ ] Validation
   - [ ] Validate predicate values
+    - [x] Required
 - [ ] Submission
   - [ ] Pass the resulting data structure to a repository layer
 
