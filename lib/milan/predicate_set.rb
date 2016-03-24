@@ -9,8 +9,16 @@ module Milan
     extend Forwardable
     def_delegators :predicates, :each, :size, :length
 
+    def convert_attribute_name_to_predicate(attribute_method_name)
+      find { |element| element.attribute_method_name == attribute_method_name }
+    end
+
     def fetch(name)
       self[name] || (raise KeyError, name)
+    end
+
+    def attribute_method_name_for(name)
+      fetch(name).attribute_method_name
     end
 
     def [](name)

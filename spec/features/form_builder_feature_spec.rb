@@ -13,10 +13,24 @@ RSpec.describe Milan, type: :feature do
     its(:predicates) { should be_a(Enumerable) }
 
     context 'that is used to build a form object' do
-      subject do
-        described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World')
+      context 'with valid data' do
+        subject do
+          described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: 'Hello World')
+        end
+        its(:title) { should eq('Hello World') }
+        it 'will be valid' do
+          expect(subject.valid?).to eq(true)
+        end
       end
-      its(:title) { should eq('Hello World') }
+      context 'with invalid data' do
+        subject do
+          described_class.form_builder_for(work_type: "ULRA Application", form: 'description', config: config).new(title: nil)
+        end
+        its(:title) { should eq(nil) }
+        it 'will be valid' do
+          expect(subject.valid?).to eq(false)
+        end
+      end
     end
   end
 
@@ -33,10 +47,10 @@ RSpec.describe Milan, type: :feature do
           contracts: [{
             contexts: ['submit'],
             validations: [
-              { validates: 'ND::expected_graduation_term', presence: true, inclusion: ["Summer 2016", "Fall 2016"] },
-              { validates: 'ND::underclass_level', presence: true, inclusion: "ND::underclass_level/options" },
-              { validates: 'ND::major', presence: true, inclusion: "https://nd.edu/api/majors.json" },
-              { validates: 'ND::primary_college', presence: true }
+              { key: 'ND::expected_graduation_term', required: true },
+              { key: 'ND::underclass_level', required: true },
+              { key: 'ND::major', required: true },
+              { key: 'ND::primary_college', required: true }
             ]
           }],
           predicates: [
@@ -51,7 +65,7 @@ RSpec.describe Milan, type: :feature do
           contracts: [{
             contexts: ['submit'],
             validations: [
-              { validates: 'DC::title', presence: true }
+              { key: 'DC::title', required: true }
             ]
           }],
           predicates: [

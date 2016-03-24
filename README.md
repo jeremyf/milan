@@ -42,10 +42,10 @@ I have a hazy plan for that but it is not yet complete.
       contracts: [{
         contexts: ['submit'],
         validations: [
-          { validates: 'ND::expected_graduation_term', presence: true, inclusion: ["Summer 2016", "Fall 2016"] },
-          { validates: 'ND::underclass_level', presence: true, inclusion: "ND::underclass_level/options" },
-          { validates: 'ND::major', presence: true, inclusion: "https://nd.edu/api/majors.json" },
-          { validates: 'ND::primary_college', presence: true }
+          { key: 'ND::expected_graduation_term', required: true, inclusion: ["Summer 2016", "Fall 2016"] },
+          { key: 'ND::underclass_level', required: true, inclusion: "ND::underclass_level/options" },
+          { key: 'ND::major', required: true, inclusion: "https://nd.edu/api/majors.json" },
+          { key: 'ND::primary_college', required: true }
         ]
       }],
       predicates: [
@@ -60,7 +60,7 @@ I have a hazy plan for that but it is not yet complete.
       contracts: [{
         contexts: ['submit'],
         validations: [
-          { validates: 'DC::title', presence: true }
+          { key: 'DC::title', required: true }
         ]
       }],
       predicates: [
@@ -113,10 +113,11 @@ en:
   - [ ] Leverage translations for label and hints
   - [ ] Each field can render via SimpleForm parameters
 - [ ] Attributes
-  - [ ] Existing predicates and corresponding values are accessible
+  - [x] Existing predicates and corresponding values are accessible
   - [ ] Keep the intersection of user given terms and available predicates
 - [ ] Validation
   - [ ] Validate predicate values
+    - [x] Required
 - [ ] Submission
   - [ ] Pass the resulting data structure to a repository layer
 

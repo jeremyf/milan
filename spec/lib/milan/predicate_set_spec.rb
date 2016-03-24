@@ -12,6 +12,17 @@ module Milan
     it { should delegate_method(:each).to(:predicates) }
     it { should delegate_method(:length).to(:predicates) }
     it { should delegate_method(:size).to(:predicates) }
+
+    context '#attribute_method_name_for' do
+      it 'will fetch the predicate' do
+        expect(subject.attribute_method_name_for('DC.title')).to eq(predicate1.attribute_method_name)
+      end
+    end
+    context '#convert_attribute_name_to_predicate' do
+      it 'will find the predicate for the attribute method name' do
+        expect(subject.convert_attribute_name_to_predicate(predicate1.attribute_method_name)).to eq(predicate1)
+      end
+    end
     context '#fetch' do
       it 'will retrieve based on the predicate' do
         expect(subject.fetch('DC.title')).to eq(predicate1)
