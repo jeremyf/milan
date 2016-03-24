@@ -1,4 +1,5 @@
 require 'milan/validator'
+require 'milan/utils'
 
 module Milan
   # A work in progress to implement an ActiveModel interface
@@ -13,7 +14,6 @@ module Milan
 
     def initialize(form_builder:, attributes: {})
       self.form_builder = form_builder
-      # TODO: Need to keep only the predicates available for the form_builder
       self.attributes = attributes
     end
 
@@ -60,13 +60,13 @@ module Milan
     alias send __send__
 
     def respond_to?(method_name, *)
-      return true if attribute_keys.include?(method_name)
+      return true if attribute_keys.include?(method_name.to_s)
       return true if FormInstance.instance_methods.include?(method_name)
       false
     end
 
     def method_missing(method_name, *args, &block)
-      attributes.fetch(method_name) { super }
+      attributes.fetch(method_name.to_s) { super }
     end
 
     def inspect
@@ -77,7 +77,12 @@ module Milan
 
     private
 
-    attr_accessor :form_builder, :attributes
+    attr_accessor :form_builder
+    attr_reader :attributes
+
+    def attributes=(input)
+      @attributes = ::Milan::Utils.deep_stringify_keys(input)
+    end
 
     def validation_messages
       ::Milan::Validator.call(attributes: attributes, form_builder: form_builder)

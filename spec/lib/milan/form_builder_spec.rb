@@ -5,7 +5,7 @@ require 'milan/predicate_aggregator'
 
 module Milan
   RSpec.describe FormBuilder do
-    let(:config) { { form: 'hello', predicates: [{ predicate: 'ND.another_term' }] } }
+    let(:config) { { form: 'hello', predicates: [{ predicate: 'ND.another_term' }, { predicate: 'title' }] } }
     let(:additional_predicates) { [{ predicate: 'ND.expected_graduation_term', cardinality: 1 }] }
     subject { described_class.new(config: config) }
     it 'will append predicates to the predicate aggregator during initialization' do
@@ -24,6 +24,9 @@ module Milan
     end
 
     context '#new' do
+      it 'builds a new form instance skipping undefined predicates' do
+        expect(subject.new(title: 'Tuesday', name: 'Chicken').send(:attributes)).to eq('title' => 'Tuesday')
+      end
       it 'builds a new form instance' do
         expect(subject.new(title: 'Tuesday').title).to eq('Tuesday')
       end

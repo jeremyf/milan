@@ -114,10 +114,12 @@ en:
   - [ ] Each field can render via SimpleForm parameters
 - [ ] Attributes
   - [x] Existing predicates and corresponding values are accessible
-  - [ ] Keep the intersection of user given terms and available predicates
+  - [x] Keep the intersection of user given terms and available predicates
 - [ ] Validation
   - [ ] Validate predicate values
     - [x] Required
+    - [ ] Inclusion
+    - [ ] Array
 - [ ] Submission
   - [ ] Pass the resulting data structure to a repository layer
 

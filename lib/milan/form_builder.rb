@@ -30,7 +30,7 @@ module Milan
     # A FormBuilder object behaves somewhat like a class; As such it exposes the ubiquitous `new` method.
     def new(**attributes)
       # TODO: Take the intersection of the given keywords keys and the predicates.attribute_method_names
-      form_instance_builder.call(form_builder: self, attributes: attributes)
+      form_instance_builder.call(form_builder: self, attributes: filter(attributes: attributes))
     end
 
     attr_reader :predicates
@@ -46,6 +46,16 @@ module Milan
 
     def partial_suffix=(input)
       @partial_suffix = Milan::Registry.resolve(:to_method_name, input)
+    end
+
+    # :reek:FeatureEnvy: { exclude: [ 'Milan::FormBuilder#filter' ] }
+    def filter(attributes:)
+      attributes = Milan::Utils.deep_stringify_keys(attributes)
+      predicates.each_with_object({}) do |predicate, mem|
+        attribute_name = predicate.attribute_method_name
+        mem[attribute_name] = attributes.fetch(attribute_name) if attributes.key?(attribute_name)
+        mem
+      end
     end
   end
 end
